@@ -1,6 +1,6 @@
 import numpy as np # 快速操作结构数组的工具
 import matplotlib.pyplot as plt  # 可视化绘制
-from sklearn.linear_model import LinearRegression  # 线性回归
+from sklearn.linear_model import Ridge,RidgeCV   # Ridge岭回归,RidgeCV带有广义交叉验证的岭回归
 
 
 # 样本数据集，第一列为x，第二列为y，在x和y之间建立回归模型
@@ -21,11 +21,13 @@ y = dataMat[:,1]   #变量y
 
 
 
-# ========线性回归========
-model = LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+# ========岭回归========
+model = Ridge(alpha=0.5)
+model = RidgeCV(alphas=[0.1, 1.0, 10.0])  # 通过RidgeCV可以设置多个参数值，算法使用交叉验证获取最佳参数值
 model.fit(X, y)   # 线性回归建模
 print('系数矩阵:\n',model.coef_)
 print('线性回归模型:\n',model)
+# print('交叉验证最佳alpha值',model.alpha_)  # 只有在使用RidgeCV算法时才有效
 # 使用模型预测
 predicted = model.predict(X)
 

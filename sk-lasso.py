@@ -1,6 +1,6 @@
 import numpy as np # 快速操作结构数组的工具
 import matplotlib.pyplot as plt  # 可视化绘制
-from sklearn.linear_model import LinearRegression  # 线性回归
+from sklearn.linear_model import Lasso,LassoCV,LassoLarsCV   # Lasso回归,LassoCV交叉验证实现alpha的选取，LassoLarsCV基于最小角回归交叉验证实现alpha的选取
 
 
 # 样本数据集，第一列为x，第二列为y，在x和y之间建立回归模型
@@ -21,11 +21,14 @@ y = dataMat[:,1]   #变量y
 
 
 
-# ========线性回归========
-model = LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+# ========Lasso回归========
+model = Lasso(alpha=0.01)  # 调节alpha可以实现对拟合的程度
+# model = LassoCV()  # LassoCV自动调节alpha可以实现选择最佳的alpha。
+# model = LassoLarsCV()  # LassoLarsCV自动调节alpha可以实现选择最佳的alpha
 model.fit(X, y)   # 线性回归建模
 print('系数矩阵:\n',model.coef_)
 print('线性回归模型:\n',model)
+# print('最佳的alpha：',model.alpha_)  # 只有在使用LassoCV、LassoLarsCV时才有效
 # 使用模型预测
 predicted = model.predict(X)
 

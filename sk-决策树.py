@@ -1,5 +1,3 @@
-# -*- coding: UTF-8 -*-
-
 import numpy as np # 快速操作结构数组的工具
 import pandas as pd # 数据分析处理工具
 import matplotlib.pyplot as plt # 画图工具
@@ -32,7 +30,7 @@ dataMat = np.mat(attr_arr)
 arrMat = dataMat[:,0:4]
 resultMat = dataMat[:,4]
 
-# 构造数据集成pandas结构
+# 构造数据集成pandas结构，为了能理解属性的名称
 attr_names = ['src', 'address', 'FAQ', 'num']   #特征属性的名称
 attr_pd = pd.DataFrame(data=arrMat,columns=attr_names)    #每行为一个对象，每列为一种属性，最后一个为结果值
 print(attr_pd)
@@ -47,8 +45,6 @@ print(attr_pd)
 clf = tree.DecisionTreeClassifier()
 clf.fit(attr_pd, resultMat)
 print(clf)
-
-
 
 # 使用决策树进行预测
 result = clf.predict([[1,1,1,0]])    # 输入也必须是数字的。分别代表了每个数字所代表的属性的字符串值
